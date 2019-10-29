@@ -8,8 +8,8 @@
         <div class="login-title">
           系统登录
         </div>
-        <el-form-item prop="name">
-          <el-input v-model="ruleForm.name">
+        <el-form-item prop="user">
+          <el-input v-model="ruleForm.user">
             <i slot="prefix" class="iconfont icon-account"></i>
           </el-input>
         </el-form-item>
@@ -41,11 +41,11 @@ export default {
     return {
       isShow: false,
       ruleForm: {
-        name: 'admin',
+        user: 'admin',
         pwd: '123456'
       },
       rules: {
-        name: [
+        user: [
           { required: true, message: '请输入账号', trigger: 'blur' },
         ],
         pwd: [
@@ -65,11 +65,7 @@ export default {
       });
     },
     login() {
-      if(this.ruleForm.name !== 'admin' || this.ruleForm.pwd !== '123456') {
-        this.$message.error('账号或密码输入错误，请重新输入');
-        return;
-      }
-      this.$http.post('/login', this.ruleForm).then(res => {
+      this.$http.post('/user/login', this.ruleForm).then(res => {
         if(res.code === 1000) {
           this.$router.push('/home');
         }
