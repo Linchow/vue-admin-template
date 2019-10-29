@@ -15,7 +15,7 @@ axios.interceptors.request.use(config => {
 })
 
 // 响应拦截器
-axios.interceptors.respose.use(res => {
+axios.interceptors.response.use(res => {
   if(res.data.code === 500) {
     VUE.$message.error(res.data.msg || '接口错误')
   }

@@ -7,7 +7,12 @@ import '@/assets/css/base.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
-Vue.use(ElementUI)
+require('./api');
+if(process.env.NODE_ENV === 'development') {
+  require('./mock');
+}
+Vue.prototype.$http = axios;
+
 Vue.use(ElementUI, { size: 'small' })
 
 Vue.config.productionTip = false
