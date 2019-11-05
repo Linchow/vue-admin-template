@@ -1,6 +1,16 @@
 <template>
   <div class="header-box">
     <i class="iconfont icon-menu" :class="isNavCollapse ? 'icon-zhankai' : 'icon-shouqi'" @click="$store.commit('changeNavCollapse')"></i>
+    <el-dropdown class="header-menu" trigger="click" @command="handleCommand">     
+      <span class="el-dropdown-link">
+        <i class="el-icon-user"></i>欢迎您
+        <i class="el-icon-arrow-down el-icon--right"></i>
+      </span>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item command="userInfo">个人中心</el-dropdown-item>
+        <el-dropdown-item command="signOut" divided>退出登陆</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
   </div>
 </template>
 
@@ -16,6 +26,11 @@ export default {
     isNavCollapse() {
       return this.$store.state.isNavCollapse
     }
+  },
+  methods: {
+    handleCommand(command) {
+      
+    }
   }
 }
 </script>
@@ -25,6 +40,8 @@ export default {
     height: 50px;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.08);
+    position: relative;
+    z-index: 2;
   }
   .icon-menu {
     display: inline-block;
@@ -34,5 +51,16 @@ export default {
     line-height: 50px;
     cursor: pointer;
     color: #666;
+  }
+  .header-menu {
+    float: right;
+    margin: 13px;
+    cursor: pointer;
+  }
+  .el-icon-user {
+    font-size: 20px;
+    margin-right: 5px;
+    border: 1px solid #666;
+    border-radius: 50%;
   }
 </style>

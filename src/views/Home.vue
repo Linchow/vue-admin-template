@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div class="home">
+    <img src="@/assets/images/welcome.gif" alt="">
+  </div>
 </template>
 
 <script>
@@ -14,5 +16,8 @@ export default {
 </script>
 
 <style scoped>
-  
+  .home {
+    min-height: 400px;
+    text-align: center;
+  }
 </style>
