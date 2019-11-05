@@ -1,7 +1,8 @@
 <template>
-  <div class="container">
-    <MyHeader></MyHeader>
+  <div class="container" :class="isNavCollapse ? 'menu-mini' : ''">
+    <my-menu></my-menu>
     <div class="main-container">
+      <my-header></my-header>
       <router-view></router-view>
     </div>
   </div>
@@ -21,6 +22,11 @@ export default {
       
     };
   },
+  computed: {
+    isNavCollapse() {
+      return this.$store.state.isNavCollapse
+    }
+  }
 }
 </script>
 
@@ -31,6 +37,13 @@ export default {
   }
   .main-container {
     height: 100%;
-    margin-left: 210px;
+    margin-left: 250px;
+    transition: .3s;
+  }
+  .container.menu-mini .main-container {
+    margin-left: 64px;
+  }
+  .container.menu-mini .menu-box {
+    width: 64px;
   }
 </style>
