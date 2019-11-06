@@ -9,8 +9,8 @@ const mocks = [
 function XHR2ExpressReqWrap(respond) {
   return function(options) {
     let result = null
+    const { body, type, url } = options
     if (respond instanceof Function) {
-      const { body, type, url } = options
       result = respond({
         method: type,
         body: JSON.parse(body)
@@ -18,6 +18,7 @@ function XHR2ExpressReqWrap(respond) {
     } else {
       result = respond
     }
+    console.log(JSON.parse(body))
     console.log(result)
     return Mock.mock(result)
   }

@@ -9,7 +9,7 @@
       background-color="#2d3a4b"
       text-color="#bfcbd9"
       active-text-color="#409EFF">
-      <template v-for="(item, index) in menuList">
+      <template v-for="(item, index) in permissionList">
         <el-submenu v-if="item.children && item.children.length > 0" :key="index" :index="item.id">
           <template slot="title">
             <i class="iconfont" :class="item.icon"></i>
@@ -33,64 +33,19 @@ export default {
   name: 'my-menu',
   data () {
     return {
-      menuList: [
-        {
-          name: '首页',
-          id: '1',
-          path: '/home',
-          icon: 'icon-home',
-        },
-        {
-          name: '首页',
-          id: '2',
-          path: '/login',
-          icon: 'el-icon-document',
-          children: [
-            {
-              name: '首页',
-              id: '1-1',
-              path: '/login',
-              icon: 'el-icon-document',
-            },
-            {
-              name: '首页',
-              id: '1-1',
-              path: '/login',
-              icon: 'el-icon-document',
-            },
-            {
-              name: '首页',
-              id: '1-1',
-              path: '/home',
-              icon: 'el-icon-document',
-            },
-            {
-              name: '首页',
-              id: '1-1',
-              path: '/login',
-              icon: 'el-icon-document',
-            },
-          ]
-        },
-        {
-          name: '首页',
-          id: '1',
-          path: '/dd',
-          icon: 'icon-home',
-        },
-        {
-          name: '首页',
-          id: '1',
-          path: '/asdf',
-          icon: 'icon-home',
-        },
-      ],
+      
     };
   },
   computed: {
     isNavCollapse() {
-      return this.$store.state.isNavCollapse
+      return this.$store.state.isNavCollapse;
+    },
+    permissionList() {
+      return this.$store.state.userInfo.permissionList;
     }
+  },
+  methods: {
+    
   }
 }
 </script>

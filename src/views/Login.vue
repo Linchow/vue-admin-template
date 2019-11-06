@@ -67,6 +67,13 @@ export default {
     login() {
       this.$http.post('/user/login', this.ruleForm).then(res => {
         if(res.code === 1000) {
+          this.util.setCookie('uuid', res.data.uuid);
+          this.$store.commit('setUserInfo', res.data);
+          let redirect = this.$route.query.redirect;
+          if(redirect) {
+            this.$router.replace(redirect);
+            return;
+          }
           this.$router.push('/home');
         }
       })

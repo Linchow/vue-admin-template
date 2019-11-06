@@ -7,7 +7,9 @@ axios.defaults.baseURL = '/api';
 
 // 请求拦截器
 axios.interceptors.request.use(config => {
-
+  if(config.method === 'post') {
+    config.data = {uuid: VUE.util.getCookie('uuid'), ...config.data}
+  }
   return config;
 }, error => {
   VUE.$message.error('请求超时，请查看您的网络或稍后重试！');

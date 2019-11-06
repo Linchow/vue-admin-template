@@ -1,6 +1,11 @@
 <template>
   <div class="header-box">
     <i class="iconfont icon-menu" :class="isNavCollapse ? 'icon-zhankai' : 'icon-shouqi'" @click="$store.commit('changeNavCollapse')"></i>
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item v-for="(item, index) in levelList" :key="index">
+        <span :class="$route.path !== item.path ? 'no-current' : 'current'" @click="routeLink(item)">{{item.meta.title}}</span>
+      </el-breadcrumb-item>
+    </el-breadcrumb>
     <el-dropdown class="header-menu" trigger="click" @command="handleCommand">     
       <span class="el-dropdown-link">
         <i class="el-icon-user"></i>欢迎您
@@ -24,12 +29,27 @@ export default {
   },
   computed: {
     isNavCollapse() {
-      return this.$store.state.isNavCollapse
+      return this.$store.state.isNavCollapse;
+    },
+    levelList() {
+      let matched = this.$route.matched.filter(item => item.meta && item.meta.title);
+
+      if(matched[0].path !== '/home') {
+        matched.unshift({ path: '/home', meta: { title: '首页' } });
+      }
+      
+      return matched;
     }
   },
   methods: {
     handleCommand(command) {
       
+    },
+    routeLink(item) {
+      if(this.$route.path === item.path) {
+        return;
+      }
+      this.$router.push(item.path);
     }
   }
 }
@@ -62,5 +82,15 @@ export default {
     margin-right: 5px;
     border: 1px solid #666;
     border-radius: 50%;
+  }
+  .el-breadcrumb {
+    display: inline-block;
+  }
+  .current {
+    color: #97a8be;
+  }
+  .no-current {
+    color: #333;
+    cursor: pointer;
   }
 </style>
