@@ -8,7 +8,7 @@
     </el-breadcrumb>
     <el-dropdown class="header-menu" trigger="click" @command="handleCommand">     
       <span class="el-dropdown-link">
-        <i class="el-icon-user"></i>欢迎您
+        <i class="el-icon-user"></i>欢迎您，{{userInfo.name}}
         <i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
@@ -39,6 +39,9 @@ export default {
       }
       
       return matched;
+    },
+    userInfo() {
+      return this.$store.state.userInfo;
     }
   },
   methods: {
