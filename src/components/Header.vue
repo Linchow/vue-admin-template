@@ -1,31 +1,38 @@
 <template>
-  <div class="header-box">
-    <i class="iconfont icon-menu" :class="isNavCollapse ? 'icon-zhankai' : 'icon-shouqi'" @click="$store.commit('changeNavCollapse')"></i>
-    <el-breadcrumb separator="/">
-      <el-breadcrumb-item v-for="(item, index) in levelList" :key="index">
-        <span :class="$route.path !== item.path ? 'no-current' : 'current'" @click="routeLink(item)">{{item.meta.title}}</span>
-      </el-breadcrumb-item>
-    </el-breadcrumb>
-    <el-dropdown class="header-menu" trigger="click" @command="handleCommand">     
-      <span class="el-dropdown-link">
-        <i class="el-icon-user"></i>欢迎您，{{userInfo.name}}
-        <i class="el-icon-arrow-down el-icon--right"></i>
-      </span>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item command="userInfo">个人中心</el-dropdown-item>
-        <el-dropdown-item command="signOut" divided>退出登陆</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
+  <div class="top-box">
+    <div class="header-box">
+      <i class="iconfont icon-menu" :class="isNavCollapse ? 'icon-zhankai' : 'icon-shouqi'" @click="$store.commit('changeNavCollapse')"></i>
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item v-for="(item, index) in levelList" :key="index">
+          <span :class="$route.path !== item.path ? 'no-current' : 'current'" @click="routeLink(item)">{{item.meta.title}}</span>
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+      <el-dropdown class="header-menu" trigger="click" @command="handleCommand">     
+        <span class="el-dropdown-link">
+          <i class="el-icon-user"></i>欢迎您，{{userInfo.name}}
+          <i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="userInfo">个人中心</el-dropdown-item>
+          <el-dropdown-item command="signOut" divided>退出登陆</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
+    <tabs></tabs>
   </div>
 </template>
 
 <script>
+import Tabs from '@/components/Tabs'
 export default {
   name: 'my-header',
   data () {
     return {
       
     };
+  },
+  components: {
+    Tabs
   },
   computed: {
     isNavCollapse() {
@@ -59,12 +66,16 @@ export default {
 </script>
 
 <style scoped>
-  .header-box {
-    height: 50px;
+  .top-box {
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.08);
     position: relative;
     z-index: 2;
+  }
+  .header-box {
+    height: 50px;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,21,41,.08);
   }
   .icon-menu {
     display: inline-block;

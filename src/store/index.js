@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isNavCollapse: false,
-    permissionList: [],
+    tabList: [{path: '/home', title: '首页'}],
     userInfo: {},
     isLoin: false
   },
@@ -19,6 +19,9 @@ export default new Vuex.Store({
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo;
       state.isLoin = !!userInfo;
+    },
+    addTabList(state, tabList) {
+      state.tabList = tabList;
     }
   },
   actions: {
