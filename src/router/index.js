@@ -63,6 +63,32 @@ const routes = [
       },
     ]
   },
+  {
+    path: '/system',
+    redirect: '/system/user',
+    component: Layout,
+    meta: {
+      title: '系统管理'
+    },
+    children: [
+      {
+        path: '/system/user',
+        name: 'user',
+        component: () => import('@/views/system/User'),
+        meta: {
+          title: '用户管理'
+        }
+      },
+      {
+        path: '/system/role',
+        name: 'role',
+        component: () => import('@/views/system/Role'),
+        meta: {
+          title: '角色管理'
+        }
+      },
+    ]
+  },
 
   {
     path: '/404',

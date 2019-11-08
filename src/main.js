@@ -15,7 +15,7 @@ if(process.env.NODE_ENV === 'development') {
 Vue.prototype.$http = axios;
 Vue.prototype.util = util;
 
-Vue.use(ElementUI, { size: 'small' })
+Vue.use(ElementUI, { size: 'mini' })
 
 Vue.config.productionTip = false
 

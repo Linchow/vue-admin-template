@@ -7,9 +7,9 @@
           <span :class="$route.path !== item.path ? 'no-current' : 'current'" @click="routeLink(item)">{{item.meta.title}}</span>
         </el-breadcrumb-item>
       </el-breadcrumb>
-      <el-dropdown class="header-menu" trigger="click" @command="handleCommand">     
+      <el-dropdown size="small" class="header-menu" trigger="click" @command="handleCommand">     
         <span class="el-dropdown-link">
-          <i class="el-icon-user"></i>欢迎您，{{userInfo.name}}
+          <i class="el-icon-user"></i>欢迎您，{{userInfo.userName}}
           <i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">

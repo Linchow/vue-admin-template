@@ -8,8 +8,8 @@
         <div class="login-title">
           系统登录
         </div>
-        <el-form-item prop="user">
-          <el-input v-model="ruleForm.user">
+        <el-form-item prop="loginName">
+          <el-input v-model="ruleForm.loginName">
             <i slot="prefix" class="iconfont icon-account"></i>
           </el-input>
         </el-form-item>
@@ -41,11 +41,11 @@ export default {
     return {
       isShow: false,
       ruleForm: {
-        user: 'admin',
+        loginName: 'admin',
         pwd: '123456'
       },
       rules: {
-        user: [
+        loginName: [
           { required: true, message: '请输入账号', trigger: 'blur' },
         ],
         pwd: [

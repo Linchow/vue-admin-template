@@ -8,19 +8,37 @@ const permissionList = [
     icon: 'icon-home',
   },
   {
-    name: '错误页面',
+    name: '系统管理',
     id: '2',
+    path: '/system',
+    icon: 'icon-quanxian',
+    children: [
+      {
+        name: '用户管理',
+        id: '2-1',
+        path: '/system/user',
+      },
+      {
+        name: '角色管理',
+        id: '2-2',
+        path: '/system/role',
+      },
+    ]
+  },
+  {
+    name: '错误页面',
+    id: '3',
     path: '/error',
     icon: 'icon-error-page',
     children: [
       {
         name: '404',
-        id: '2-1',
+        id: '3-1',
         path: '/error/404',
       },
       {
         name: '401',
-        id: '2-2',
+        id: '3-2',
         path: '/error/401',
       },
     ]
@@ -29,8 +47,8 @@ const permissionList = [
 
 const userInfo = {
   uuid: 'd475c4f675b04ef7a63ba9b0310b8c08',
-  name: Mock.Random.cname(),
-  user: 'admin',
+  userName: Mock.Random.cname(),
+  loginName: 'admin',
   pwd: '123456',
   permissionList: permissionList
 }
@@ -40,8 +58,8 @@ export default [
     url: '/user/login',
     type: 'post',
     response(config) {
-      let { user, pwd } = config.body;
-      if(user !== userInfo.user || pwd !== userInfo.pwd) {
+      let { loginName, pwd } = config.body;
+      if(loginName !== userInfo.loginName || pwd !== userInfo.pwd) {
         return {
           code: 500,
           data: false,
