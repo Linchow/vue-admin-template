@@ -71,6 +71,12 @@ html, body {
 .el-scrollbar__wrap.overflow-x-auto {
     overflow-x: auto;
 }
+.el-input {
+    width: 200px;
+}
+.el-select {
+    width: 200px;
+}
 
 .opt-box {
     padding-top: 20px;
@@ -84,3 +90,7 @@ html, body {
     color: #666;
 }
 
+.tips {
+    font-size: 12px;
+    color: #666;
+}

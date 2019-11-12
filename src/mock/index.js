@@ -1,9 +1,11 @@
 import Mock from 'mockjs'
 
 import user from './user'
+import system from './system'
 
 const mocks = [
   ...user,
+  ...system,
 ]
 
 function XHR2ExpressReqWrap(respond) {
