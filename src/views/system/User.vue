@@ -108,7 +108,7 @@ export default {
     let validatePhone = (rule, value, callback) => {
       if (!value) {
         callback(new Error('请输入手机号'))
-      } else if (!/^1((3[\d])|(4[5,6,9])|(5[0-3,5-9])|(6[5-7])|(7[0-8])|(8[1-3,5-8])|(9[1,8,9]))\d{8}$/.test(value)) {
+      } else if (!/^[1](([3][0-9])|([4][5-9])|([5][012356789])|([6][56])|([7][0-8])|([8][0-9])|([9][189]))[0-9]{8}$/.test(value)) {
         callback(new Error('请输入正确的手机号格式'))
       } else {
         callback()

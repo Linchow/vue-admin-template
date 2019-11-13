@@ -3,15 +3,15 @@ import Mock from 'mockjs'
 const userList = []
 const count = 104
 
-const role = ['系统管理员', '管理员', '总经理', '业务员', '主管', '专员']
+const roleName = ['系统管理员', '管理员', '总经理', '业务员', '主管', '专员']
 
 for (let i = 0; i < count; i++) {
   userList.push(Mock.mock({
     id: '@increment',
     loginName: '@first',
-    'roleName|1': role,
+    'roleName|1': roleName,
     userName: '@cname',
-    phone: /^1((3[\d])|(4[5,6,9])|(5[0-3,5-9])|(6[5-7])|(7[0-8])|(8[1-3,5-8])|(9[1,8,9]))\d{8}$/,
+    phone: /^[1](([3][0-9])|([4][5-9])|([5][012356789])|([6][56])|([7][0-8])|([8][0-9])|([9][189]))[0-9]{8}$/,
     email: '@email',
     createBy: '@cname',
   }))
