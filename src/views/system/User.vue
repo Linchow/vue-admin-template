@@ -17,57 +17,54 @@
     <div class="opt-box">
       <el-button type="primary" @click="addEdit({})" plain>添加</el-button>
     </div>
-    <el-table 
-      :data="tableList.list"
-      header-cell-class-name="headerCellName"
-      stripe>
-        <el-table-column
-          type="index"
-          align="center"
-          label="序号">
-        </el-table-column>
-        <el-table-column
-          prop="loginName"
-          align="center"
-          label="账号">
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="角色">
-          <template slot-scope="scope">
-            <el-tag type="success" size="small">{{scope.row.roleName}}</el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="userName"
-          align="center"
-          label="姓名">
-        </el-table-column>
-        <el-table-column
-          prop="phone"
-          align="center"
-          label="手机号">
-        </el-table-column>
-        <el-table-column
-          prop="email"
-          align="center"
-          label="邮箱">
-        </el-table-column>
-        <el-table-column
-          prop="createBy"
-          align="center"
-          label="添加人">
-        </el-table-column>
-        <el-table-column
-          align="center"
-          label="操作">
-          <template slot-scope="scope">
-            <el-button @click="addEdit(scope.row)" type="primary" icon="el-icon-edit" plain circle></el-button>
-            <el-button @click="remove(scope.row.id)" type="danger" icon="el-icon-delete" circle plain></el-button>
-          </template>
-        </el-table-column>
-    </el-table>
-    <pagination :page="{getList, pageObj, total: tableList.total}"></pagination>
+    <div v-loading="loading">
+      <el-table 
+        :data="tableList.list"
+        header-cell-class-name="headerCellName"
+        stripe>
+          <el-table-column
+            prop="loginName"
+            align="center"
+            label="账号">
+          </el-table-column>
+          <el-table-column
+            align="center"
+            label="角色">
+            <template slot-scope="scope">
+              <el-tag type="success" size="small">{{scope.row.roleName}}</el-tag>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="userName"
+            align="center"
+            label="姓名">
+          </el-table-column>
+          <el-table-column
+            prop="phone"
+            align="center"
+            label="手机号">
+          </el-table-column>
+          <el-table-column
+            prop="email"
+            align="center"
+            label="邮箱">
+          </el-table-column>
+          <el-table-column
+            prop="createBy"
+            align="center"
+            label="添加人">
+          </el-table-column>
+          <el-table-column
+            align="center"
+            label="操作">
+            <template slot-scope="scope">
+              <el-button @click="addEdit(scope.row)" type="primary" icon="el-icon-edit" plain circle></el-button>
+              <el-button @click="remove(scope.row.id)" type="danger" icon="el-icon-delete" circle plain></el-button>
+            </template>
+          </el-table-column>
+      </el-table>
+      <pagination :page="{getList, pageObj, total: tableList.total}"></pagination>
+    </div>
     <el-dialog
       :title="`${formData.id ? '编辑' : '添加'}用户`"
       width="400px"
@@ -78,10 +75,10 @@
           <div class="tips">提示：建议使用邮箱，一旦创建不可修改。</div>
         </el-form-item>
         <el-form-item label="姓名：" prop="userName">
-          <el-input ref="userName" v-model="formData.userName" placeholder="请输入姓名"></el-input>
+          <el-input v-model="formData.userName" placeholder="请输入姓名"></el-input>
         </el-form-item>
         <el-form-item label="手机号：" prop="phone">
-          <el-input ref="phone" v-model="formData.phone" placeholder="电话号码"></el-input>
+          <el-input v-model="formData.phone" placeholder="电话号码"></el-input>
         </el-form-item>
         <el-form-item label="邮箱：" prop="email">
           <el-input v-model="formData.email" placeholder="请输入正确的邮箱格式"></el-input>
@@ -122,6 +119,7 @@ export default {
       },
       tableList: {},
       dialogVisible: false,
+      loading: false,
       formData: {},
       rules: {
         userName: [
@@ -159,10 +157,15 @@ export default {
     },
     getList() {
       this.searchForm = Object.assign(this.searchForm, this.pageObj);
+      this.loading = true;
       this.$http.post('/system/user/list', this.searchForm).then(res => {
         if(res.code === 1000) {
           this.tableList = res.data;
         }
+      }).finally(() => {
+        setTimeout(() => {
+          this.loading = false;
+        }, 1000);
       })
     },
     addEdit(row) {

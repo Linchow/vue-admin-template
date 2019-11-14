@@ -10,7 +10,8 @@ export default new Vuex.Store({
     isNavCollapse: false,
     tabList: [{path: '/home', title: '首页'}],
     userInfo: {},
-    isLoin: false
+    uuid: localStorage.getItem('uuid') || '',
+    isLogin: false,
   },
   mutations: {
     changeNavCollapse(state) {
@@ -18,11 +19,18 @@ export default new Vuex.Store({
     },
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo;
-      state.isLoin = !!userInfo;
+      state.uuid = userInfo.uuid || '';
+      if(state.uuid) {
+        localStorage.setItem('uuid', state.uuid);
+        state.isLogin = true;
+      }else {
+        localStorage.removeItem('uuid');
+        state.isLogin = false;
+      }
     },
     addTabList(state, tabList) {
       state.tabList = tabList;
-    }
+    },
   },
   actions: {
     getUserInfo({ commit }) {

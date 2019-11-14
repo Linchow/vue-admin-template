@@ -1,9 +1,8 @@
-import Vue from 'vue'
 import $store from '../store'
+import { Message } from 'element-ui'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
-let VUE = new Vue();
 NProgress.configure({ showSpinner: false });
 
 export default function($router) {
@@ -17,10 +16,19 @@ export default function($router) {
     document.title = title;
 
     let authList = to.meta && to.meta.auth || [];
-    let isLogin = $store.state.isLoin;
-    if(authList.indexOf('noLogin') > -1) {
+    let uuid = $store.state.uuid;
+    let isLogin = $store.state.isLogin;
+
+    if(authList.indexOf('noLogin') > -1) { // 白名单，不需要登陆信息
       next();
-    }else if(!isLogin) {
+    }else if(!uuid) { // 未获取uuid
+      Message.error('登陆失效，请重新登陆')
+      next({
+        path: '/login',
+        query: {redirect: to.fullPath},
+      })
+      NProgress.done()
+    }else if(!isLogin) { // 未获取登陆信息
       $store.dispatch('getUserInfo').then(res => {
         next();
       }).catch(error => {

@@ -53,8 +53,25 @@ export default {
   },
   methods: {
     handleCommand(command) {
-      
-    },
+      if(command === 'signOut') {
+        this.$confirm('确定退出登录吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$http.post('/user/signOut', {}).then((res) => {
+            if (res.code === 1000) {
+              this.$message({
+                message: '退出登录成功',
+                type: 'success'
+              })
+              this.$store.commit('setUserInfo', {})
+              this.$router.push('/login');
+            }
+          })
+        })
+      }
+    }, 
     routeLink(item) {
       if(this.$route.path === item.path) {
         return;

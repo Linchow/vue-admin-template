@@ -1,14 +1,16 @@
 import axios from 'axios'
 import Vue from 'vue'
+import $store from '../store'
 
 let VUE = new Vue();
 
 axios.defaults.baseURL = '/api';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // 请求拦截器
 axios.interceptors.request.use(config => {
   if(config.method === 'post') {
-    config.data = {uuid: VUE.util.getCookie('uuid'), ...config.data}
+    config.data = {uuid: $store.state.uuid, ...config.data}
   }
   return config;
 }, error => {

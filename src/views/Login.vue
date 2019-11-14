@@ -67,7 +67,6 @@ export default {
     login() {
       this.$http.post('/user/login', this.ruleForm).then(res => {
         if(res.code === 1000) {
-          this.util.setCookie('uuid', res.data.uuid);
           this.$store.commit('setUserInfo', res.data);
           let redirect = this.$route.query.redirect;
           if(redirect) {
@@ -123,5 +122,8 @@ export default {
   }
   .text-tip {
     color: #ebeef5;
+  }
+  .el-input {
+    width: 100%;
   }
 </style>

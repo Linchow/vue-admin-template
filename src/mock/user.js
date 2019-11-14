@@ -92,4 +92,15 @@ export default [
       }
     }
   },
+  {
+    url: '/user/signOut',
+    type: 'post',
+    response(config) {
+      return {
+        code: 1000,
+        data: true,
+        msg: true
+      }
+    }
+  },
 ]
