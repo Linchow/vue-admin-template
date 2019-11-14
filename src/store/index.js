@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isNavCollapse: false,
-    tabList: [{path: '/home', title: '首页'}],
+    tabList: [{path: '/home', name: 'home', title: '首页'}],
     userInfo: {},
     uuid: localStorage.getItem('uuid') || '',
     isLogin: false,

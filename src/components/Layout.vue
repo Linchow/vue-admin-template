@@ -4,7 +4,11 @@
     <div class="main-container">
       <my-header></my-header>
       <el-scrollbar class="main-content" wrap-class="overflow-x-auto">
-        <router-view class="content"></router-view>
+        <transition :name="transitionName" mode="out-in">
+          <keep-alive :include="cachedViews">
+            <router-view :key="key" class="content"></router-view>
+          </keep-alive>
+        </transition>
       </el-scrollbar>
     </div>
   </div>
@@ -21,12 +25,29 @@ export default {
   },
   data () {
     return {
-      
+      transitionName: 'fade-transform'
     };
+  },
+  watch: {
+    '$route'(to, from) {
+      if(this.cachedViews.indexOf(to.name) > -1) {
+        this.transitionName = '';
+      }else {
+        this.transitionName = 'fade-transform'
+      }
+    }
   },
   computed: {
     isNavCollapse() {
       return this.$store.state.isNavCollapse
+    },
+    key() {
+      return this.$route.path
+    },
+    cachedViews() {
+      return this.$store.state.tabList.map(item => {
+          return item.name || '';
+      })
     }
   }
 }
@@ -63,4 +84,18 @@ export default {
     border-radius: 5px;
     padding: 20px 25px 60px;
   }
+
+  .fade-transform-leave-active,
+  .fade-transform-enter-active {
+      transition: all .5s;
+  }
+  .fade-transform-enter {
+      opacity: 0;
+      transform: translateX(-30px);
+  }
+  .fade-transform-leave-to {
+      opacity: 0;
+      transform: translateX(30px);
+  }
+
 </style>

@@ -47,7 +47,7 @@ export default {
       if(this.tabList.findIndex(item => item.path === route.path) > -1) {
         return;
       }
-      this.tabList.push({path: route.path, title: route.meta.title})
+      this.tabList.push({path: route.path,name: route.name, title: route.meta.title})
       if(route.meta && route.meta.title) {
         this.$store.commit('addTabList', this.tabList);
       }
