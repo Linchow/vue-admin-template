@@ -9,7 +9,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 require('./api');
-if(process.env.NODE_ENV === 'development') {
+if(process.env.NODE_ENV !== 'development') {
   require('./mock');
 }
 Vue.prototype.$http = axios;

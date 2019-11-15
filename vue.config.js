@@ -1,5 +1,5 @@
 module.exports = {
-  outputDir: 'dist',
+  outputDir: 'vue-admin-template',
   publicPath: './',
   productionSourceMap: false,
   devServer:{
