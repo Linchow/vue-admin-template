@@ -10,7 +10,7 @@ export default new Vuex.Store({
     isNavCollapse: false,
     tabList: [{path: '/home', name: 'home', title: '首页'}],
     userInfo: {},
-    uuid: localStorage.getItem('uuid') || '',
+    token: localStorage.getItem('token') || '',
     isLogin: false,
   },
   mutations: {
@@ -19,12 +19,12 @@ export default new Vuex.Store({
     },
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo;
-      state.uuid = userInfo.uuid || '';
-      if(state.uuid) {
-        localStorage.setItem('uuid', state.uuid);
+      state.token = userInfo.token || '';
+      if(state.token) {
+        localStorage.setItem('token', state.token);
         state.isLogin = true;
       }else {
-        localStorage.removeItem('uuid');
+        localStorage.removeItem('token');
         state.isLogin = false;
       }
     },

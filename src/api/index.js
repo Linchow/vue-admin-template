@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Vue from 'vue'
 import $store from '../store'
+import $router from '../router'
 
 let VUE = new Vue();
 
@@ -10,7 +11,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 // 请求拦截器
 axios.interceptors.request.use(config => {
   if(config.method === 'post') {
-    config.data = {uuid: $store.state.uuid, ...config.data}
+    config.data = {token: $store.state.token, ...config.data}
   }
   return config;
 }, error => {
@@ -22,6 +23,10 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(res => {
   if(res.data.code === 500) {
     VUE.$message.error(res.data.msg || '接口错误')
+  }
+  if(res.data.code === 1) {
+    VUE.$message.error(res.data.msg)
+    $router.replace('/login')
   }
   return res.data;
 }, error => {

@@ -24,7 +24,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button style="width: 100%;margin-top: 20px;" type="primary" @click="submitForm('ruleForm')">登录</el-button>
+          <el-button style="width: 100%;margin-top: 20px;" type="primary" :loading="btnLoading" @click="submitForm('ruleForm')">登录</el-button>
         </el-form-item>
         <el-form-item>
           <span class="text-tip" style="margin-right: 30px;">账号：admin</span>
@@ -40,6 +40,7 @@ export default {
   data () {
     return {
       isShow: false,
+      btnLoading: false,
       ruleForm: {
         loginName: 'admin',
         pwd: '123456'
@@ -65,6 +66,7 @@ export default {
       });
     },
     login() {
+      this.btnLoading = true;
       this.$http.post('/user/login', this.ruleForm).then(res => {
         if(res.code === 1000) {
           this.$store.commit('setUserInfo', res.data);
@@ -75,6 +77,8 @@ export default {
           }
           this.$router.push('/home');
         }
+      }).finally(() => {
+        this.btnLoading = false;
       })
     }
   }

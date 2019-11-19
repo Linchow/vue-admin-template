@@ -46,7 +46,7 @@ const permissionList = [
 ]
 
 const userInfo = {
-  uuid: 'd475c4f675b04ef7a63ba9b0310b8c08',
+  token: 'd475c4f675b04ef7a63ba9b0310b8c08',
   userName: Mock.Random.cname(),
   loginName: 'admin',
   pwd: '123456',
@@ -77,8 +77,8 @@ export default [
     url: '/user/info',
     type: 'post',
     response(config) {
-      let { uuid } = config.body;
-      if(uuid !== userInfo.uuid) {
+      let { token } = config.body;
+      if(token !== userInfo.token) {
         return {
           code: 500,
           data: false,

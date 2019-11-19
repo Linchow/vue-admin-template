@@ -16,12 +16,12 @@ export default function($router) {
     document.title = title;
 
     let authList = to.meta && to.meta.auth || [];
-    let uuid = $store.state.uuid;
+    let token = $store.state.token;
     let isLogin = $store.state.isLogin;
 
     if(authList.indexOf('noLogin') > -1) { // 白名单，不需要登陆信息
       next();
-    }else if(!uuid) { // 未获取uuid
+    }else if(!token) { // 未获取token
       Message.error('登陆失效，请重新登陆')
       next({
         path: '/login',
